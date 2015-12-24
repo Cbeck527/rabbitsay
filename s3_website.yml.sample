@@ -1,0 +1,14 @@
+s3_id: CHANGE_ME
+s3_secret: CHANGE_ME
+s3_bucket: www.rabbitsay.wtf
+
+site: website
+
+index_document: index.html
+error_document: error.html
+
+gzip: true
+
+# exclude_from_upload:
+#   - those_folders_of_stuff
+#   - i_wouldnt_want_to_upload

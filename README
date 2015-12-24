@@ -1,0 +1,18 @@
+README
+
+$ pip install RabbitSay
+$ rabbitsay -h
+Usage: rabbitsay [OPTIONS] "MESSAGE ON SIGN"
+
+     ┌───────────┐
+     | rabbitsay |
+     └───────────┘
+  (\__/) ||
+  (•ㅅ•) ||
+  / 　 づ
+
+  RabbitSay - say (possibly mean) things with a cute rabbit.
+
+Options:
+  --spacing INTEGER  padding around message text
+  -h, --help         Show this message and exit.
