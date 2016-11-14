@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-import click
-
-
-CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 RABBIT = '''
 (\__/) ||
@@ -10,12 +6,9 @@ RABBIT = '''
 / 　 づ
 '''
 
-@click.command(context_settings=CONTEXT_SETTINGS)
-@click.option('--spacing', default=2, help='padding around message text')
-@click.argument('message', metavar='"MESSAGE ON SIGN"')
-def cli(spacing, message):
+
+def rabbitsay(spacing, message):
     """
-    \b
        ┌───────────┐
        | rabbitsay |
        └───────────┘
@@ -23,7 +16,7 @@ def cli(spacing, message):
     (•ㅅ•) ||
     / 　 づ
 
-    RabbitSay - say (possibly mean) things with a cute rabbit.
+    Function to generate rabbit and sign with custom content
     """
     lines = message.split()
     width = max(map(len, lines)) + spacing
@@ -37,4 +30,4 @@ def cli(spacing, message):
         edge=edge,
         rabbit=RABBIT,
     )
-    click.echo(sign)
+    return sign
