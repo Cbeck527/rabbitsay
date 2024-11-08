@@ -1,7 +1,7 @@
 use clap::Parser;
 use rabbitsay::cli::Args;
-use rabbitsay::text::wrap_text;
 use rabbitsay::format_message;
+use rabbitsay::text::wrap_text;
 
 fn main() {
     let args = Args::parse();

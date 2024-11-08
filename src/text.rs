@@ -10,7 +10,7 @@ pub fn wrap_text(text: &str, max_width: &usize) -> Vec<String> {
     let mut current_line = String::new();
 
     for word in words {
-        if current_line.len() + word.len() + 1 <= *max_width {
+        if current_line.len() + word.len() < *max_width {
             if !current_line.is_empty() {
                 current_line.push(' ');
             }
