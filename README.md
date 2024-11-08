@@ -36,3 +36,5 @@ Options:
   -V, --version
           Print version
 ```
+
+[![Rust CI](https://github.com/<username>/rabbitsay/actions/workflows/rust.yml/badge.svg)](https://github.com/<username>/rabbitsay/actions/workflows/rust.yml)
