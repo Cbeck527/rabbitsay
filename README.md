@@ -3,7 +3,7 @@
 Say (possibly mean) things with a cute rabbit.
 
 ```
-$ rabbitsay --help                                                                                                                                                                       at 05:01:14 PM
+$ rabbitsay --help
      ┌───────────┐
      | rabbitsay |
      └───────────┘
