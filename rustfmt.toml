@@ -1,0 +1,5 @@
+edition = "2024"
+style_edition = "2024"
+match_arm_leading_pipes = "Always"
+match_block_trailing_comma = true
+use_try_shorthand = true

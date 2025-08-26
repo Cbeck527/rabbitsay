@@ -1,29 +1,69 @@
+name: Release
+
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
-  release:
-    name: release ${{ matrix.target }}
-    runs-on: ubuntu-latest
+  build:
+    name: Build binaries
     strategy:
-      fail-fast: false
       matrix:
         include:
-          - target: x86_64-pc-windows-gnu
-            archive: zip
-          - target: x86_64-unknown-linux-musl
-            archive: tar.gz
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-latest
+            name: rabbitsay-${{ github.ref_name }}-linux-x64.tar.gz
           - target: x86_64-apple-darwin
-            archive: tar.gz
+            os: macos-13  # Intel Mac
+            name: rabbitsay-${{ github.ref_name }}-macos-x64.tar.gz
           - target: aarch64-apple-darwin
-            archive: tar.gz
+            os: macos-14  # Apple Silicon Mac
+            name: rabbitsay-${{ github.ref_name }}-macos-arm64.tar.gz
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+            name: rabbitsay-${{ github.ref_name }}-windows-x64.zip
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@master
-      - name: Compile and release
-        uses: rust-build/rust-build.action@v1.4.5
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Cache cargo dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Build release binary
+        run: cargo build --release --target ${{ matrix.target }}
+
+      - name: Strip binary (Unix)
+        if: matrix.os != 'windows-latest'
+        run: strip target/${{ matrix.target }}/release/rabbitsay
+
+      - name: Create archive (Unix)
+        if: matrix.os != 'windows-latest'
+        run: |
+          cd target/${{ matrix.target }}/release
+          tar -czf ../../../${{ matrix.name }} rabbitsay
+
+      - name: Create archive (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd target/${{ matrix.target }}/release
+          Compress-Archive -Path rabbitsay.exe -DestinationPath ../../../${{ matrix.name }}
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.name }}
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          RUSTTARGET: ${{ matrix.target }}
-          ARCHIVE_TYPES: ${{ matrix.archive }}

@@ -1,15 +1,23 @@
 [package]
 name = "rabbitsay"
 version = "0.1.0"
-edition = "2021"
-
-[lib]
-name = "rabbitsay"
-path = "src/lib.rs"
-
-[[bin]]
-name = "rabbitsay"
-path = "src/main.rs"
+edition = "2024"
+description = "Say (possibly mean) things with a cute rabbit"
+license = "MIT"
+repository = "https://github.com/cbeck527/rabbitsay"
+documentation = "https://docs.rs/rabbitsay"
+keywords = ["cli", "ascii-art", "rabbit", "cowsay", "fun"]
+categories = ["command-line-utilities"]
 
 [dependencies]
-clap = { version = "4.5.20", features = ["derive"] }
+clap = { version = "4.5.45", features = ["derive"] }
+
+[workspace.metadata.release]
+pre-release-commit-message = "chore: release {{version}}"
+tag-message = "Release {{version}}"
+tag-name = "v{{version}}"
+# sign commits and tags
+sign-commit = true
+sign-tag = true
+# but don't push to git right away
+push = false
