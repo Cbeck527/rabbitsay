@@ -39,7 +39,7 @@ fn main() {
     println!("\n=== Library Usage Example ===\n");
 
     // In a real library/TUI app, you might store the output
-    let messages = vec![
+    let messages = [
         say("Error: File not found!"),
         say_with(
             "Warning: Low disk space",
