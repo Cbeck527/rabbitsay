@@ -1,29 +1,23 @@
-use rabbitsay::{cli::Args, format_message, text::wrap_text};
+use rabbitsay::{Config, say_with};
 
 #[test]
 fn test_full_message_flow() {
-    // Simulate CLI args
-    let args = Args {
-        message: "Hello, this is a test message".to_string(),
+    let config = Config {
         max_width: 10,
-        spacing: 2,
+        padding: 2,
     };
-
-    // Process the message
-    let lines = wrap_text(&args.message, &args.max_width);
-    let output = format_message(&lines, args.max_width, args.spacing);
-
+    let message = "Hello, this is a test message";
+    let output = say_with(message, config);
     assert_eq!(
         output,
-        r"    ┌────────────┐
-    |   Hello,   |
-    | this is a  |
-    |    test    |
-    |  message   |
-    └────────────┘
+        r"  ┌───────────┐
+  │  Hello,   │
+  │ this is a │
+  │   test    │
+  │  message  │
+  └───────────┘
 (\__/) ||
 (•ㅅ•) ||
-/ 　 づ
-"
+/ 　 づ "
     )
 }
