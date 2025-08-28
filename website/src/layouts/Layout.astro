@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+import '@styles/global.css'
+import Foot from '@components/Foot.astro'
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content="{Astro.generator}" />
+    <title>{title}</title>
+  </head>
+  <body class="font-mono">
+    <main>
+      <slot />
+    </main>
+    <Foot />
+  </body>
+</html>
+
+<style>
+  body {
+    padding: 5rem 5rem;
+  }
+</style>
